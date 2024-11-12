@@ -8,8 +8,19 @@ export default function User() {
    const navigation = useNavigation<NavigationProp<any>>();
 
    const handleLogout = () => {
-      Alert.alert("Logout", "Você saiu da conta.");
-      return navigation.reset({ routes: [{ name: "Login" }] });
+      Alert.alert("Confirm Logout", "Are you sure you want to logout?", [
+         {
+            text: "Cancel",
+            style: "cancel",
+         },
+         {
+            text: "OK",
+            onPress: () => {
+               Alert.alert("Logout", "Você saiu da conta.");
+               navigation.reset({ routes: [{ name: "Login" }] });
+            },
+         },
+      ]);
    };
 
    return (

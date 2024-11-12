@@ -6,7 +6,7 @@ import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { Flag } from "../../components/flag";
 import { themas } from "../../global/themes";
 import { AuthContextList } from "../../context/authContext_list";
-import { Text, View, StatusBar, FlatList, Button } from "react-native";
+import { Text, View, StatusBar, FlatList, TouchableOpacity } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { formatDateToBR } from "../../global/funtions";
 
@@ -20,6 +20,7 @@ export default function List() {
          <AntDesign name="delete" size={20} color={"#FFF"} />
       </View>
    );
+
    const renderLeftActions = () => (
       <View style={[style.Button, { backgroundColor: themas.Colors.blueLigth }]}>
          <AntDesign name="edit" size={20} color={"#FFF"} />
@@ -52,12 +53,16 @@ export default function List() {
                      <Ball color={color} />
                      <View>
                         <Text style={style.titleCard}>{item.title}</Text>
-                        <Text style={style.descriptionCard}>{item.description}</Text>
-                        <Text style={style.descriptionCard}>até {formatDateToBR(item.timeLimit)}</Text>
+                        <Text style={style.descriptionCard} numberOfLines={1}>
+                           {item.description}
+                        </Text>
+                        <Text style={style.descriptionCard}>até {formatDateToBR(item.timeLimit) }</Text>
                      </View>
                   </View>
                   <View style={style.rowCardRight}>
-                     <Button title="X" onPress={() => handleDelete(item)} />
+                     <TouchableOpacity style={style.button} onPress={() => handleDelete(item)}>
+                        <Text style={style.ButtonText}>X</Text>
+                     </TouchableOpacity>
                      <Flag caption={item.flag} color={color} />
                   </View>
                </View>

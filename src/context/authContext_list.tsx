@@ -6,8 +6,9 @@ import { Modalize } from "react-native-modalize";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomDateTimePicker from "../components/CustomDateTimePicker";
-import { TouchableOpacity, Text, View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { TouchableOpacity, Text, View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Alert } from "react-native";
 import { Loading } from "../components/Loading";
+import { styles } from "./styles";
 
 export const AuthContextList: any = createContext({});
 
@@ -54,6 +55,11 @@ export const AuthProviderList = (props: AuthProviderListProps) => {
       setSelectedTime(date);
    };
    const handleSave = async () => {
+      if (!title.trim() || !description.trim() || !selectedDate || !selectedTime) {
+         Alert.alert("Erro", "Todos os campos devem ser preenchidos.");
+         return;
+      }
+
       const newItem = {
          item: item !== 0 ? item : Date.now(),
          title,
@@ -213,7 +219,7 @@ export const AuthProviderList = (props: AuthProviderListProps) => {
                      value={description}
                      onChangeText={setDescription}
                   />
-                  <View style={{ width: "100%", flexDirection: "row", gap: 10 }}>
+                  <View style={{ width: "100%", flexDirection: "row", gap: 16 }}>
                      <TouchableOpacity onPress={() => setShowDatePicker(true)} style={{ width: 200, zIndex: 999 }}>
                         <Input
                            title="Data limite:"
@@ -223,7 +229,7 @@ export const AuthProviderList = (props: AuthProviderListProps) => {
                            onPress={() => setShowDatePicker(true)}
                         />
                      </TouchableOpacity>
-                     <TouchableOpacity onPress={() => setShowDatePicker(true)} style={{ width: 100 }}>
+                     <TouchableOpacity onPress={() => setShowDatePicker(true)} style={{ width: 150 }}>
                         <Input
                            title="Hora limite:"
                            labelStyle={styles.label}
@@ -267,40 +273,5 @@ export const AuthProviderList = (props: AuthProviderListProps) => {
       </AuthContextList.Provider>
    );
 };
-
-export const styles = StyleSheet.create({
-   container: {
-      width: "100%",
-   },
-   header: {
-      width: "100%",
-      height: 40,
-      paddingHorizontal: 40,
-      flexDirection: "row",
-      marginTop: 20,
-      justifyContent: "space-between",
-      alignItems: "center",
-   },
-   title: {
-      fontSize: 20,
-      fontWeight: "bold",
-   },
-   content: {
-      width: "100%",
-      paddingHorizontal: 20,
-   },
-   label: {
-      fontWeight: "bold",
-      color: "#000",
-   },
-   containerFlag: {
-      width: "100%",
-      padding: 10,
-   },
-   flag: {
-      fontSize: 14,
-      fontWeight: "bold",
-   },
-});
 
 export const useAuth = () => useContext(AuthContextList);

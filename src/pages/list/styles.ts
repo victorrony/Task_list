@@ -41,8 +41,8 @@ export const style = StyleSheet.create({
    },
    rowCard: {
       flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
+      // alignItems: "center",
+      justifyContent: "space-evenly",
    },
    titleCard: {
       fontSize: 16,
@@ -70,8 +70,17 @@ export const style = StyleSheet.create({
       fontWeight: "bold",
    },
    rowCardRight: {
-      width: "30%" ,
-      gap: 6,
+      width: "30%",
+      gap: 16,
       alignItems: "flex-end",
+   },
+   button: {
+      width: 20,
+      height: 20,
+      borderRadius: 20,
+      paddingBottom: 2,
+      backgroundColor: themas.Colors.primary,
+      alignItems: "center",
+      justifyContent: "center",
    },
 });
